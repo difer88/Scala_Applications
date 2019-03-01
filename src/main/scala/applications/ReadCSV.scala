@@ -13,7 +13,7 @@ class ReadCSV {
     .format("csv")
     .option("header", "true") //first line in file has headers
     .option("mode", "DROPMALFORMED")
-    .load("hdfs:///csv/file/dir/file.csv")
+    .load("localhost:9000/diego/data.csv")
 
 }
 
