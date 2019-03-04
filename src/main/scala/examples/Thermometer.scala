@@ -23,12 +23,11 @@ object Thermometer {
 
     val thermometer = new Thermometer
 
-    println("Input Fahrenheit:")
-
     while (true){
+      println("Input Fahrenheit:")
       Exception.ignoring(classOf[NumberFormatException])
       thermometer.fahrenheit = StdIn.readFloat()
-      println(thermometer)
+      println(thermometer + "\n")
     }
 
   }
