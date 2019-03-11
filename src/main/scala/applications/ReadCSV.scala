@@ -11,8 +11,7 @@ class ReadCSV {
     .getOrCreate;
 
   // Setting the Spark log level
-  val sc = spark.sparkContext
-  sc.setLogLevel("WARN")
+  spark.sparkContext.setLogLevel("WARN")
 
   // Creating DataFrame
   val df = spark.read

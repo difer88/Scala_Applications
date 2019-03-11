@@ -4,9 +4,10 @@ import org.apache.hadoop.hbase.client._
 import org.apache.hadoop.hbase.util.Bytes
 import org.apache.hadoop.hbase.{CellUtil, HBaseConfiguration, TableName}
 import org.apache.hadoop.conf.Configuration
+
 import scala.collection.JavaConverters._
 
-object ScalaHBaseExample extends App{
+object ScalaHBaseGetScan extends App{
 
   def printRow(result : Result) = {
 
@@ -22,12 +23,15 @@ object ScalaHBaseExample extends App{
     println()
   }
 
-  val conf : Configuration = HBaseConfiguration.create()
+  val hbaseConf : Configuration = HBaseConfiguration.create()
+
+  // HBase Config
+
   val ZOOKEEPER_QUORUM = "localhost"
 
-  conf.set("hbase.zookeeper.quorum", ZOOKEEPER_QUORUM);
+  hbaseConf.set("hbase.zookeeper.quorum", ZOOKEEPER_QUORUM);
 
-  val connection = ConnectionFactory.createConnection(conf)
+  val connection = ConnectionFactory.createConnection(hbaseConf)
   val table = connection.getTable(TableName.valueOf( Bytes.toBytes("ns:test_data") ) )
 
   // Put example
