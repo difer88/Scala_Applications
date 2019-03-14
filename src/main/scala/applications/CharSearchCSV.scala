@@ -7,14 +7,14 @@ class CharSearchCSV {
 
   val logFile = "hdfs://localhost:9000/diego/data.csv" // Should be some file on your system
 
-  val conf = new SparkConf().setAppName("Simple Application").setMaster("local")
+  val sparkConf = new SparkConf().setAppName("Simple Application").setMaster("local")
 
-  val sc = new SparkContext(conf)
+  val sparkContext = new SparkContext(sparkConf)
 
   // Setting the log level
-  sc.setLogLevel("WARN")
+  sparkContext.setLogLevel("WARN")
 
-  val logData = sc.textFile(logFile, 2).cache()
+  val logData = sparkContext.textFile(logFile, 2).cache()
 
 }
 
