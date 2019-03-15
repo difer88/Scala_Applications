@@ -1,4 +1,4 @@
-package applications
+package example
 
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.hbase.client.Put
@@ -15,39 +15,38 @@ import org.apache.spark.streaming.{Duration, StreamingContext}
 
 import scala.language.postfixOps
 
-object KafkaToHBaseStreaming {
+
+object TransactionStreaming {
 
   // Spark Config
-  val appName = "Kafka-HBase_Streaming"
+  val appName = "PFM-Transaction-Streaming"
   val master = "local"
-
   val spark = SparkSession
     .builder
     .appName(appName)
     .master(master)
     .getOrCreate()
 
-  spark.sparkContext.setLogLevel("WARN")
+  spark.sparkContext.setLogLevel("ERROR")
 
   // Kafka Config
-  val kafkaTopics = Array("testTopic")
+  val kafkaTopics = Array("test")
   val kafkaParams = Map[String, Object](
     "bootstrap.servers" -> "localhost:9092",
     "key.deserializer" -> classOf[StringDeserializer],
     "value.deserializer" -> classOf[StringDeserializer],
-    "group.id" -> "testTopic",
+    "group.id" -> "test",
     "auto.offset.reset" -> "latest",
     "enable.auto.commit" -> (false: java.lang.Boolean)
   )
 
   // HBase Config
+  val zookeeperQuorum = "localhost"
+  val tableName = "ns:test_data"
+
   val hbaseConf: Configuration = HBaseConfiguration.create()
 
-  val tableName = "ns:test_data"
-  val zookeeperQuorum = "localhost"
-  val hbaseMaster = "local"
-
-  hbaseConf.set("hbase.master", hbaseMaster)
+  hbaseConf.set("hbase.master", "local")
   hbaseConf.set("hbase.zookeeper.quorum", zookeeperQuorum)
 
   UserGroupInformation.setConfiguration(hbaseConf)
