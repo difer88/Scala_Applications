@@ -1,4 +1,4 @@
-name := "Scala_Tests"
+name := "Scala_Applications"
 
 version := "0.1"
 
